@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito - Accord Perfumes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="top-header">
+
+        <div class="buscador-container">
+
+            <input 
+                type="text"
+                id="buscador"
+                placeholder="Buscar perfumes..."
+                autocomplete="off"
+            >
+
+            <div id="resultados-busqueda"></div>
+
+        </div>
+
+        <a href="index.html" class="logo">
+            Accord Perfumes
+        </a>
+
+        <div class="icons">
+            <span>🛒</span>
+        </div>
+
+    </div>
+
+
+    <nav>
+        <ul>
+            <li><a href="perfumes.html">Perfumes</a></li>
+            <li><a href="marcas.html">Marcas</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<main class="carrito">
+
+    <h1>🛒 Mi carrito</h1>
+
+    <div id="productos-carrito"></div>
+
+    <h2 id="total"></h2>
+
+    <button onclick="vaciarCarrito()">Vaciar carrito</button>
+
+</main>
+
+<script>
+
+function mostrarCarrito() {
+
+    const contenedor = document.getElementById("productos-carrito");
+    const totalElemento = document.getElementById("total");
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    contenedor.innerHTML = "";
+
+    let total = 0;
+
+    if (carrito.length === 0) {
+
+        contenedor.innerHTML = "<p>Tu carrito está vacío.</p>";
+
+        totalElemento.textContent = "";
+
+        return;
+    }
+
+    carrito.forEach((producto, index) => {
+
+        // Compatibilidad con productos agregados anteriormente
+        if (!producto.cantidad) {
+            producto.cantidad = 1;
+        }
+
+        // Convertir "$52.000" en 52000
+        let precioNumerico = parseInt(
+            producto.precio.replace(/\D/g, "")
+        );
+
+        // Calcular subtotal
+        let subtotal = precioNumerico * producto.cantidad;
+
+        total += subtotal;
+
+        contenedor.innerHTML += `
+
+            <div class="producto-carrito">
+
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+
+                <div>
+
+                    <h2>${producto.nombre}</h2>
+
+                    <p>${producto.marca}</p>
+
+                    <p>Precio: ${producto.precio}</p>
+
+                    <div class="cantidad">
+
+                        <button onclick="disminuirCantidad(${index})">
+                            −
+                        </button>
+
+                        <span>
+                            Cantidad: ${producto.cantidad}
+                        </span>
+
+                        <button onclick="aumentarCantidad(${index})">
+                            +
+                        </button>
+
+                    </div>
+
+                    <p>
+                        Subtotal: $${subtotal.toLocaleString("es-AR")}
+                    </p>
+
+                    <button onclick="eliminarProducto(${index})">
+                        Eliminar
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+    });
+
+    totalElemento.textContent =
+        "Total: $" + total.toLocaleString("es-AR");
+
+    // Guardar cambios
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+
+// AUMENTAR CANTIDAD
+
+function aumentarCantidad(index) {
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    carrito[index].cantidad++;
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    mostrarCarrito();
+}
+
+
+// DISMINUIR CANTIDAD
+
+function disminuirCantidad(index) {
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (carrito[index].cantidad > 1) {
+
+        carrito[index].cantidad--;
+
+    } else {
+
+        // Si llega a 0, eliminar producto
+        carrito.splice(index, 1);
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    mostrarCarrito();
+}
+
+
+// ELIMINAR PRODUCTO
+
+function eliminarProducto(index) {
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    carrito.splice(index, 1);
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    mostrarCarrito();
+}
+
+
+// VACIAR CARRITO
+
+function vaciarCarrito() {
+
+    localStorage.removeItem("carrito");
+
+    mostrarCarrito();
+}
+
+
+// Mostrar carrito al abrir la página
+
+mostrarCarrito();
+
+</script>
+<script src="buscador.js"></script>
+</body>
+</html>

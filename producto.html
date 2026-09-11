@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Producto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="pagina-producto">
+
+    <header>
+
+    <div class="top-header">
+
+        <div class="buscador-container">
+
+            <input
+                type="text"
+                id="buscador"
+                placeholder="Buscar perfumes..."
+                autocomplete="off"
+            >
+
+            <div id="resultados-busqueda"></div>
+
+        </div>
+
+        <a href="index.html" class="logo">
+            Accord Perfumes
+        </a>
+
+        <div class="icons">
+            <a href="Carrito.html">🛒</a>
+        </div>
+
+    </div>
+
+    <!-- MENU -->
+    <nav>
+        <ul>
+            <li><a href="perfumes.html">Perfumes</a></li>
+            <li><a href="marcas.html">Marcas</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+    <main class="detalle-producto">
+
+        <!-- IMAGEN -->
+        <div class="producto-imagen">
+            <img id="imagen" alt="Producto">
+        </div>
+
+        <!-- INFORMACIÓN -->
+        <div class="producto-info">
+
+            <p id="marca"></p>
+
+            <h1 id="nombre"></h1>
+
+            <p id="descripcion"></p>
+
+            <h2 id="precio"></h2>
+
+        <button class="btn-comprar" onclick="agregarAlCarrito()">
+            🛒 Agregar al carrito
+        </button>
+
+        </div>
+
+    </main>
+        <section class="resenas">
+
+            <h2>RESEÑAS</h2>
+
+            <div class="resenas-contenido">
+
+                <div class="resenas-izquierda">
+                    <h3>0</h3>
+
+                    <div class="estrellas">
+                          ☆ ☆ ☆ ☆ ☆
+                    </div>
+
+                    <p>Calificación promedio (0 evaluaciones)</p>
+
+                     <button>ESCRIBÍ TU RESEÑA</button>
+                </div>
+
+                 <div class="resenas-derecha">
+                    <p>Lo sentimos. Aún no hay reseñas para este producto.</p>
+                </div>
+
+    </div>
+
+</section>
+
+    <footer>
+
+    <div class="footer-column">
+        <h3>ACCORD</h3>
+        <p>Perfumes y fragancias</p>
+    </div>
+
+    <div class="footer-column">
+        <h3>ACERCA DE NOSOTROS</h3>
+        <p>Quiénes somos</p>
+        <p>Nuestros productos</p>
+        <p>Contacto</p>
+    </div>
+
+    <div class="footer-column">
+        <h3>AYUDA</h3>
+        <p>Preguntas frecuentes</p>
+        <p>Envíos</p>
+        <p>Medios de pago</p>
+    </div>
+
+    <div class="footer-column">
+        <h3>SEGUINOS</h3>
+        <p>Instagram</p>
+        <p>Facebook</p>
+        <p>TikTok</p>
+    </div>
+
+</footer>
+<script src="buscador.js"></script>
+<script src="producto.js"></script>
+</body>
+</html>
